@@ -17,6 +17,9 @@ COPY . .
 # Build
 RUN pnpm build
 
+# Install production deps only
+RUN pnpm install --prod --frozen-lockfile
+
 # Production stage
 FROM node:20-alpine
 

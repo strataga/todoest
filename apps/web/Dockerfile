@@ -21,6 +21,9 @@ ENV VITE_API_URL=$VITE_API_URL
 # Build
 RUN pnpm build
 
+# Install production deps only
+RUN pnpm install --prod --frozen-lockfile
+
 # Production stage - serve with nginx
 FROM nginx:alpine
 
