@@ -2,14 +2,17 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json pnpm-lock.yaml* ./
+# Enable corepack for pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install pnpm and dependencies
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+# Copy package files from apps/api
+COPY apps/api/package.json apps/api/pnpm-lock.yaml* ./
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY . .
+COPY apps/api/ .
 
 # Build
 RUN pnpm build
