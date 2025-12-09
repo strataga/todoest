@@ -5,14 +5,14 @@ WORKDIR /app
 # Enable corepack for pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy package files from apps/web
-COPY apps/web/package.json apps/web/pnpm-lock.yaml ./
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY apps/web/ .
+COPY . .
 
 # Build argument for API URL
 ARG VITE_API_URL
@@ -28,7 +28,7 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copy nginx config
-COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
