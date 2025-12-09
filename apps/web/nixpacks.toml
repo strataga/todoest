@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "pnpm"]
+
+[phases.install]
+cmds = ["pnpm install", "npm install -g serve"]
+
+[phases.build]
+cmds = ["pnpm build"]
+
+[start]
+cmd = "serve dist -s -l $PORT"

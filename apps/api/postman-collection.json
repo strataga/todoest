@@ -1,0 +1,277 @@
+{
+  "info": {
+    "_postman_id": "todo-api-collection",
+    "name": "Todo API",
+    "description": "A RESTful API for managing todos and categories",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "todoId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "categoryId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Todos",
+      "description": "Todo management endpoints",
+      "item": [
+        {
+          "name": "Get All Todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/todos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos"]
+            },
+            "description": "Retrieve all todos"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Todo by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/todos/{{todoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos", "{{todoId}}"]
+            },
+            "description": "Retrieve a specific todo by its ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Todo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('todoId', response.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete project documentation\",\n  \"description\": \"Write comprehensive API documentation\",\n  \"dueDate\": \"2025-12-31T23:59:59.000Z\",\n  \"categoryId\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/todos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos"]
+            },
+            "description": "Create a new todo"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Todo",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Todo Title\",\n  \"description\": \"Updated description\",\n  \"completed\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/todos/{{todoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos", "{{todoId}}"]
+            },
+            "description": "Update an existing todo"
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Todo Completion",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/todos/{{todoId}}/toggle",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos", "{{todoId}}", "toggle"]
+            },
+            "description": "Toggle the completion status of a todo"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Todo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/todos/{{todoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "todos", "{{todoId}}"]
+            },
+            "description": "Delete a todo"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "description": "Category management endpoints",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Retrieve all categories"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "{{categoryId}}"]
+            },
+            "description": "Retrieve a specific category by its ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('categoryId', response.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Work\",\n  \"color\": \"hsl(152, 35%, 45%)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Create a new category"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Personal\",\n  \"color\": \"hsl(200, 50%, 50%)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "{{categoryId}}"]
+            },
+            "description": "Update an existing category"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "{{categoryId}}"]
+            },
+            "description": "Delete a category (removes category reference from associated todos)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "description": "Health check endpoint",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check API health status"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

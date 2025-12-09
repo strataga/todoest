@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Coverage
+coverage
+
+# Cache
+.turbo
+*.local
+
+# OS files
+.DS_Store
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.sw?
